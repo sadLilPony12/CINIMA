@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('/roles')->group(function () {
+    Route::get('/', [RoleController::class, 'index']);
+    Route::get('/list', [RoleController::class, 'list']);
+    Route::post('/save', [RoleController::class, 'save']);
+    Route::put('/{role}/update', [RoleController::class, 'update']);
+    Route::delete('/{role}/destroy', [RoleController::class, 'destroy']);
 });
