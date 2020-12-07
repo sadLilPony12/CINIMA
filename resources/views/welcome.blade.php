@@ -25,9 +25,15 @@
 			</div>
             <div class="login-menu">
                 <ul>
-                    <li style="float:left; margin-left: -5%; margin-right: 5%;"><a href="{{ route('login') }}">Login |</a></li>
-                    <li style="float:left;"><a href="{{ route('register') }}">Register</a></li>
-                </ul>
+                    @if (Route::has('login'))
+                        @auth
+                            <li><a href="{{ route('home') }}">Home</a></li>
+                        @else
+                            <li style="float:left; margin-left: -5%; margin-right: 5%;"><a href="{{ route('login') }}">Login |</a></li>
+                            <li style="float:left;"><a href="{{ route('register') }}">Register</a></li>
+                        @endauth
+                    @endif
+                </ul>                
 			</div>
 		</div>
     </div>
