@@ -42,33 +42,37 @@
 				<div class="col-md-6 col-lg-5">
 					<div class="register-box bg-white box-shadow border-radius-10">
 						<div class="wizard-content">
-							<form class="tab-wizard2 wizard-circle wizard">
+							<form id="registration-form" class="tab-wizard2 wizard-circle wizard" method="POST" action="{{ route('register') }}">
+                                @csrf
 								<h5>Basic Account Credentials</h5>
 								<section>
 									<div class="form-wrap max-width-600 mx-auto">
 										<div class="form-group row">
 											<label class="col-sm-4 col-form-label">Email Address*</label>
 											<div class="col-sm-8">
-												<input type="email" class="form-control">
+												<input type="email" id="email" name="email" value="{{ old('email') }}" class="form-control" required>
 											</div>
 										</div>
 										<div class="form-group row">
 											<label class="col-sm-4 col-form-label">Username*</label>
 											<div class="col-sm-8">
-												<input type="text" class="form-control">
+												<input type="text" id="username" name="username" value="{{ old('username') }}" class="form-control" required>
 											</div>
 										</div>
 										<div class="form-group row">
 											<label class="col-sm-4 col-form-label">Password*</label>
 											<div class="col-sm-8">
-												<input type="password" class="form-control">
+												<input type="password" id="password" name="password" class="form-control passwords">
 											</div>
 										</div>
 										<div class="form-group row">
 											<label class="col-sm-4 col-form-label">Confirm Password*</label>
 											<div class="col-sm-8">
-												<input type="password" class="form-control">
+												<input type="password" id="confirm-password" name="password_confirmation" class="form-control passwords">
 											</div>
+										</div>
+										<div class="alert alert-warning alert-dismissible fade show" role="alert">
+											<strong>Passwords does not match</strong> Try typing it precisely and more carefully.
 										</div>
 									</div>
 								</section>
@@ -79,30 +83,30 @@
 										<div class="form-group row">
 											<label class="col-sm-4 col-form-label">First Name*</label>
 											<div class="col-sm-8">
-												<input type="text" class="form-control">
+												<input type="text" id="first-name" name="first_name" value="{{ old('first_name') }}" class="form-control" required>
 											</div>
                                         </div>
                                         <div class="form-group row">
 											<label class="col-sm-4 col-form-label">Middle Name*</label>
 											<div class="col-sm-8">
-												<input type="text" class="form-control">
+												<input type="text" id="middle-name" name="middle_name" value="{{ old('middle_name') }}" class="form-control">
 											</div>
                                         </div>
                                         <div class="form-group row">
 											<label class="col-sm-4 col-form-label">Last Name*</label>
 											<div class="col-sm-8">
-												<input type="text" class="form-control">
+												<input type="text" id="last-name" name="last_name" value="{{ old('last_name') }}" class="form-control" required>
 											</div>
 										</div>
 										<div class="form-group row align-items-center">
 											<label class="col-sm-4 col-form-label">Gender*</label>
 											<div class="col-sm-8">
 												<div class="custom-control custom-radio custom-control-inline pb-0">
-													<input type="radio" id="male" name="gender" class="custom-control-input">
+													<input type="radio" id="male" name="gender" value="Male" class="custom-control-input" checked="checked">
 													<label class="custom-control-label" for="male">Male</label>
 												</div>
 												<div class="custom-control custom-radio custom-control-inline pb-0">
-													<input type="radio" id="female" name="gender" class="custom-control-input">
+													<input type="radio" id="female" name="gender" value="Female" class="custom-control-input">
 													<label class="custom-control-label" for="female">Female</label>
 												</div>
 											</div>
@@ -110,7 +114,7 @@
 										<div class="form-group row">
 											<label class="col-sm-4 col-form-label">Address*</label>
 											<div class="col-sm-8">
-												<input type="text" class="form-control">
+												<input type="text" id="address" name="address" value="{{ old('address') }}" class="form-control" required>
 											</div>
 										</div>
 									</div>
@@ -190,38 +194,35 @@
 											<li>
 												<div class="row">
 													<div class="col-sm-4 weight-600">Email Address</div>
-													<div class="col-sm-8">example@abc.com</div>
+													<div id="show-email" class="col-sm-8"></div>
 												</div>
 											</li>
 											<li>
 												<div class="row">
 													<div class="col-sm-4 weight-600">Username</div>
-													<div class="col-sm-8">Example</div>
+													<div id="show-username" class="col-sm-8"></div>
 												</div>
 											</li>
 											<li>
 												<div class="row">
-													<div class="col-sm-4 weight-600">Password</div>
-													<div class="col-sm-8">.....000</div>
+													<div class="col-sm-4 weight-600">Gender</div>
+													<div id="show-gender" class="col-sm-8"></div>
 												</div>
 											</li>
 											<li>
 												<div class="row">
 													<div class="col-sm-4 weight-600">Full Name</div>
-													<div class="col-sm-8">john smith</div>
+													<div id="show-fullname" class="col-sm-8"></div>
 												</div>
 											</li>
 											<li>
 												<div class="row">
-													<div class="col-sm-4 weight-600">Location</div>
-													<div class="col-sm-8">123 Example</div>
+													<div class="col-sm-4 weight-600">Address</div>
+													<div id="show-address" class="col-sm-8"></div>
 												</div>
 											</li>
 										</ul>
-										<div class="custom-control custom-checkbox mt-4">
-											<input type="checkbox" class="custom-control-input" id="customCheck1">
-											<label class="custom-control-label" for="customCheck1">I have read and agreed to the terms of services and privacy policy</label>
-										</div>
+										<label>By submitting this form, you agree that all the information provided by you are all true.</label>
 									</div>
 								</section>
 							</form>
@@ -232,7 +233,6 @@
 		</div>
 	</div>
 	<!-- success Popup html Start -->
-	<button type="button" id="success-modal-btn" hidden data-toggle="modal" data-target="#success-modal" data-backdrop="static">Launch modal</button>
 	<div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered max-width-400" role="document">
 			<div class="modal-content">
@@ -242,7 +242,7 @@
 					You will now be redirected to the login page
 				</div>
 				<div class="modal-footer justify-content-center">
-					<a href="{{ route('login') }}" class="btn btn-primary">Okay</a>
+					<a onclick="event.preventDefault(); document.getElementById('registration-form').submit();" href="#" class="btn btn-primary">Okay</a>
 				</div>
 			</div>
 		</div>
@@ -254,7 +254,7 @@
     <script src="{{ asset('js/process.js') }}"></script>
     <script src="{{ asset('js/script.min.js') }}"></script>
     <script src="{{ asset('js/jquery.steps.js') }}"></script>
-    <script src="{{ asset('js/steps-setting.js') }}"></script>
+	<script src="{{ asset('js/steps-setting.js') }}"></script>
 </body>
 
 </html>
