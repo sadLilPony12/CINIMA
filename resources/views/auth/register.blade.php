@@ -239,7 +239,7 @@
 				<div class="modal-body text-center font-18">
 					<h3 class="mb-20">Form Submitted!</h3>
 					<div class="mb-30 text-center"><img src="{{ asset('images/success.png') }}"></div>
-					You will now be redirected to the login page
+					You will now be redirected to the home page
 				</div>
 				<div class="modal-footer justify-content-center">
 					<a onclick="event.preventDefault(); document.getElementById('registration-form').submit();" href="#" class="btn btn-primary">Okay</a>
