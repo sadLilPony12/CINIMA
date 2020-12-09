@@ -29,13 +29,15 @@ class CreateMoviesTable extends Migration
             $table->string('production_company')->nullable();
             $table->double('ticket_price');
             $table->string('release_date')->nullable();
-            $table->string('genre');
+            $table->unsignedBigInteger('genre_id')->nullable();
             $table->string('language');
             $table->string('edited_by');
             $table->string('music_by');
             $table->string('cinematography');
             $table->longtext('synopsis');
             $table->timestamps();
+
+            $table->foreign('genre_id')->references('id')->on('genres')->onDelete('cascade');
         });
     }
 

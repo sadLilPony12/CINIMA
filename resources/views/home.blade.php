@@ -30,43 +30,10 @@
 <div class="blog-wrap">
     <div class="container pd-0">
         <div class="row">
-            <div class="col-md-8 col-sm-12">
+            <div class="col-md-8 col-sm-12" style="max-height: 1350px; overflow: auto;">
                 <div class="blog-list">
-                    <ul>
-                        <li>
-                            <div class="row no-gutters">
-                                <div class="col-lg-4 col-md-12 col-sm-12">
-                                    <div class="blog-img">
-                                        <!-- <img src="vendors/images/img2.jpg" alt="" class="bg_img"> -->
-                                    </div>
-                                </div>
-                                <div class="col-lg-8 col-md-12 col-sm-12">
-                                    <div class="blog-caption">
-                                        <h4><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit</a></h4>
-                                        <div class="blog-by">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-                                            <div class="pt-10">
-                                                <a href="#" class="btn btn-outline-primary">Read More</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                    <ul id="movies-list">
                     </ul>
-                </div>
-                <div class="blog-pagination">
-                    <div class="btn-toolbar justify-content-center mb-15">
-                        <div class="btn-group">
-                            <a href="#" class="btn btn-outline-primary prev"><i class="fa fa-angle-double-left"></i></a>
-                            <a href="#" class="btn btn-outline-primary">1</a>
-                            <a href="#" class="btn btn-outline-primary">2</a>
-                            <span class="btn btn-primary current">3</span>
-                            <a href="#" class="btn btn-outline-primary">4</a>
-                            <a href="#" class="btn btn-outline-primary">5</a>
-                            <a href="#" class="btn btn-outline-primary next"><i class="fa fa-angle-double-right"></i></a>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-12">

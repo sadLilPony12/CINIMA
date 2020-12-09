@@ -24,7 +24,7 @@ class Movie extends Model
         'production_company',
         'ticket_price',
         'release_date',
-        'genre',
+        'genre_id',
         'language',
         'edited_by',
         'music_by',

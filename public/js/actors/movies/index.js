@@ -53,6 +53,7 @@ const state = {
     ask: async() => {
         // state.models = await fetch.translate(state.entity, { key: state.inputKey.value });
         state.models = await fetch.translate(state.entity);
+        console.log(state.models);
         if (state.models) {
             state.models.forEach(state.writer, state.activeIndex);
         }
@@ -100,7 +101,29 @@ const state = {
         }
     },
     writer: (model, index) => {
+        let li = $('<li>');
 
+        let div1 = $('<div>', { class: 'row no-gutters' });
+        let div11 = $('<div>', { class: 'col-lg-4 col-md-12 col-sm-12' });
+        let div111 = $('<div>', { class: 'blog-img', style: 'background: url("./../../../images/img1.jpg") center center no-repeat;' });
+        div111.appendTo(div11);
+        div11.appendTo(div1);
+
+        let div2 = $('<div>', { class: 'col-lg-8 col-md-12 col-sm-12', style: 'max-height: 300px; overflow: auto;' });
+        let div21 = $('<div>', { class: 'blog-caption' });
+        $('<h4>', { html: model.title }).appendTo(div21);
+        let div211 = $('<div>', { class: 'blog-by' });
+        $('<p>', { html: model.synopsis }).appendTo(div211);
+        let divReadMore = $('<div>', { class: 'pt-10' });
+        $('<a>', { href: '#', class: 'btn btn-outline-primary', html: 'Read More' }).appendTo(divReadMore);
+        divReadMore.appendTo(div211);
+        div211.appendTo(div21);
+        div21.appendTo(div2);
+        
+        div2.appendTo(div1);
+        div1.appendTo(li);
+
+        $('#movies-list').append(li);
     }
 };
 
