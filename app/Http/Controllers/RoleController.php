@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Response;
@@ -9,14 +10,13 @@ use Response;
 class RoleController extends Controller
 {
     public function index(Request $request){
-        $roles=Role::whereNull('deleted_at')
-                    ->where('name','like',"%{$request->key}%")
-                    ->whereNotIn('id',[1])
+        $roles=User::whereNull('deleted_at')
+                    ->whereRoleId($request->role)
                     ->get();
         return response()->json($roles);
     }
 
-    public function find( $roles){
+    public function find($roles){
         return $roles=Roles::whereUserId($roles)->first();
     }
 
@@ -37,7 +37,7 @@ class RoleController extends Controller
         return Response::json($role, 201);
     }
 
-    public function destroy(Role $role){
+    public function destroy(User $role){
         $role->deleted_at = now();
         $role->update();
         return response()->json(array('success'=>true));

@@ -25,19 +25,14 @@ const state = {
     /* [Table] */
     entity: {
         name: 'movie',
-        attributes: ['name', 'display_name'],
-        actions: {
-            find: ['fa fa-pencil-alt', 'Edit', 'info'],
-            delete: ['fa fa-trash', 'Delete', 'danger']
-        },
         baseUrl: 'api'
     },
     /* [Object Mapping] */
     models: [],
     /* [Tag object] */
     btnNew: document.getElementById("btn-new"),
-    btnLook: document.getElementById("look"),
-    inputKey: document.getElementById("key"),
+    // btnLook: document.getElementById("look"),
+    // inputKey: document.getElementById("key"),
     btnEngrave: document.getElementById("engrave"),
     activeIndex: 0,
     btnUpdate: null,
@@ -45,10 +40,10 @@ const state = {
     /* [initialized] */
     init: () => {
         // Attach listeners
-        state.btnNew.addEventListener("click", state.onCreate);
-        state.btnNew.disabled = false;
-        state.btnLook.addEventListener("click", state.ask);
-        state.btnLook.disabled = false;
+        // state.btnNew.addEventListener("click", state.onCreate);
+        // state.btnNew.disabled = false;
+        // state.btnLook.addEventListener("click", state.ask);
+        // state.btnLook.disabled = false;
         // const loader = document.querySelector(".loader");
         // loader.className += " hidden";
 
@@ -56,9 +51,10 @@ const state = {
     },
     /* [ACTIONS] */
     ask: async() => {
-        state.models = await fetch.translate(state.entity, { key: state.inputKey.value });
+        // state.models = await fetch.translate(state.entity, { key: state.inputKey.value });
+        state.models = await fetch.translate(state.entity);
         if (state.models) {
-            state.models.forEach(model => fetch.writer(state.entity, model));
+            state.models.forEach(state.writer, state.activeIndex);
         }
     },
     onCreate: () => {
@@ -102,6 +98,9 @@ const state = {
         if (ans) {
             state.models.splice(i, 1);
         }
+    },
+    writer: (model, index) => {
+
     }
 };
 

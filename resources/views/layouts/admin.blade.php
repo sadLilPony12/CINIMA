@@ -155,7 +155,7 @@
 
 	<div class="left-side-bar">
 		<div class="brand-logo">
-			<a href="index.html">
+			<a href="{{ route('home') }}">
                 <img src="{{ asset('images/logo-normal.png') }}" alt="" class="dark-logo">
 				<img src="{{ asset('images/logo-light.png') }}" alt="" class="light-logo">
 			</a>
@@ -166,14 +166,22 @@
 		<div class="menu-block customscroll">
 			<div class="sidebar-menu">
 				<ul id="accordion-menu">
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
+					<li>
+						<a href="{{ route('home') }}" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
 						</a>
-						<ul class="submenu">
-							<li><a href="index.html">Dashboard style 1</a></li>
-						</ul>
-					</li>					
+					</li>		
+					@if(Auth::user()->role_id == 1)
+						<li class="dropdown">
+							<a href="javascript:;" class="dropdown-toggle">
+								<span class="micon dw dw-list3"></span><span class="mtext">Roles</span>
+							</a>
+							<ul class="submenu">
+								<li><a href="{{ route('roles', ['role' => 2]) }}">Administrators</a></li>
+								<li><a href="{{ route('roles', ['role' => 3]) }}">Customers</a></li>
+							</ul>
+						</li>
+					@endif			
 				</ul>
 			</div>
 		</div>
@@ -191,6 +199,7 @@
 		</div>
 	</div>
 	<!-- js -->
+	<script src="{{ asset('js/sweetalert.js') }}"></script>
     <script src="{{ asset('js/core.js') }}"></script>
     <script src="{{ asset('js/layout-settings.js') }}"></script>
     <script src="{{ asset('js/process.js') }}"></script>

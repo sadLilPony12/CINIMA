@@ -26,10 +26,6 @@ class RoleSeeder extends Seeder
             [
                 'classification'    => 'user',
                 'display_name'      => 'Customer'
-            ],
-            [
-                'classification'    => 'guest',
-                'display_name'      => 'Guest'
             ]
         ]);
     }

@@ -18,25 +18,26 @@ import fetch from './../../fetch.js';
  */
 
 $('body').on('click', '.btn-view', async(e) => state.onShow($(e.currentTarget).data('index')));
-$('body').on('click', '.btn-delete', (e) => state.onDestroy($(e.currentTarget).data("index")));
+$('body').on('click', '.btn-delete', (e) => state.onDestroy($(e.currentTarget).data("id")));
 
 const state = {
     /* [Table] */
     entity: {
         name: 'role',
-        attributes: ['name', 'display_name'],
+        attributes: ['username', 'email'],
         actions: {
             view: ['fa fa-eye', 'View', 'info'],
             delete: ['fa fa-trash', 'Delete', 'danger']
         },
-        baseUrl: 'api'
+        baseUrl: '../api'
     },
     /* [Object Mapping] */
     models: [],
     /* [Tag object] */
-    btnNew: document.getElementById("btn-new"),
-    btnLook: document.getElementById("look"),
+    // btnNew: document.getElementById("btn-new"),
+    // btnLook: document.getElementById("look"),
     inputKey: document.getElementById("key"),
+    role: document.getElementById("list-role-id").value,
     btnEngrave: document.getElementById("engrave"),
     activeIndex: 0,
     btnUpdate: null,
@@ -44,10 +45,10 @@ const state = {
     /* [initialized] */
     init: () => {
         // Attach listeners
-        state.btnNew.addEventListener("click", state.onCreate);
-        state.btnNew.disabled = false;
-        state.btnLook.addEventListener("click", state.ask);
-        state.btnNew.disabled = false;
+        // state.btnNew.addEventListener("click", state.onCreate);
+        // state.btnNew.disabled = false;
+        // state.btnLook.addEventListener("click", state.ask);
+        // state.btnNew.disabled = false;
         // const loader = document.querySelector(".loader");
         // loader.className += " hidden";
 
@@ -55,9 +56,19 @@ const state = {
     },
     /* [ACTIONS] */
     ask: async() => {
-        state.models = await fetch.translate(state.entity, { key: state.inputKey.value });
+        // state.models = await fetch.translate(state.entity, { role: state.role, key: state.inputKey.value });
+        state.models = await fetch.translate(state.entity, { role: state.role });
         if (state.models) {
-            state.models.forEach(model => fetch.writer(state.entity, model));
+            console.log(state.models);
+            if(state.models.length == 0){
+                let message = $('<tr>', { class: 'text-center' });
+                $('<td>', { colspan: 5, html: `There are no registered ${state.role == 2 ? 'administrators' : 'customers' }` }).appendTo(message);
+
+                $('#roles-table').append(message);
+            }else{
+                $('#roles-table').empty();
+                state.models.forEach(state.writer, state.activeIndex);
+            }            
         }
     },
     onCreate: () => {
@@ -99,9 +110,42 @@ const state = {
     onDestroy: async(i) => {
         let pkey = state.models[i].id;
         let ans = await fetch.destroy(state.entity, pkey);
-        if (ans) {
+        state.ask();
+        if (ans) {            
             state.models.splice(i, 1);
         }
+    },
+    writer: (model, index) => {
+        let tr = $('<tr>');
+        $('<td>', { class: 'table-plus', html:  model.email}).appendTo(tr);
+        $('<td>', { html: model.username }).appendTo(tr);
+        $('<td>', { html: model.gender }).appendTo(tr);
+        let action = $('<td>').appendTo(tr);
+        let action_div = $('<div>', { class: 'dropdown' });
+            $('<a>', { 
+                class: 'btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle', 
+                href: '#', 
+                role: 'button', 
+                'data-toggle': 'dropdown', 
+                html: $('<i>', { class: 'dw dw-more' }) 
+            }).appendTo(action_div);
+        let action_div_dropdown = $('<div>', { class: 'dropdown-menu dropdown-menu-right dropdown-menu-icon-list' });
+
+            let action_view = $('<a>', { class: 'dropdown-item', href: '#' });
+                $('<i>', { class: 'dw dw-eye' }).appendTo(action_view);
+                $('<span>', { html: 'View' }).appendTo(action_view);
+            action_view.appendTo(action_div_dropdown);
+
+            let action_delete = $('<a>', { class: 'dropdown-item btn-delete', href: '#', 'data-id': index });
+                $('<i>', { class: 'dw dw-delete-3' }).appendTo(action_delete);
+                $('<span>', { html: 'Delete' }).appendTo(action_delete);  
+            action_delete.appendTo(action_div_dropdown);            
+            index++;
+            
+        action_div_dropdown.appendTo(action_div);
+        action_div.appendTo(action);
+        action.appendTo(tr);
+        $('#roles-table').append(tr);
     }
 };
 
