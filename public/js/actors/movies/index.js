@@ -27,6 +27,10 @@ const state = {
         name: 'movie',
         baseUrl: 'api'
     },
+    entity1: {
+        name: 'movie',
+        baseUrl: '../../api'
+    },
     /* [Object Mapping] */
     models: [],
     /* [Tag object] */
@@ -46,17 +50,24 @@ const state = {
         // state.btnLook.disabled = false;
         // const loader = document.querySelector(".loader");
         // loader.className += " hidden";
-
-        state.ask();
+        state.ask();     
     },
     /* [ACTIONS] */
     ask: async() => {
         // state.models = await fetch.translate(state.entity, { key: state.inputKey.value });
-        state.models = await fetch.translate(state.entity);
-        console.log(state.models);
-        if (state.models) {
-            state.models.forEach(state.writer, state.activeIndex);
-        }
+        if($('#movie-id').val()){
+            state.models = await fetch.translate(state.entity1);
+            console.log(state.models);
+            if (state.models) {
+                state.models.forEach(state.detailWriter);
+            }
+        }else{
+            state.models = await fetch.translate(state.entity);
+            console.log(state.models);
+            if (state.models) {
+                state.models.forEach(state.listWriter, state.activeIndex);
+            }
+        }        
     },
     onCreate: () => {
         state.btnEngrave.innerHTML = "Save";
@@ -100,7 +111,7 @@ const state = {
             state.models.splice(i, 1);
         }
     },
-    writer: (model, index) => {
+    listWriter: (model) => {
         let li = $('<li>');
 
         let div1 = $('<div>', { class: 'row no-gutters' });
@@ -115,7 +126,7 @@ const state = {
         let div211 = $('<div>', { class: 'blog-by' });
         $('<p>', { html: model.synopsis }).appendTo(div211);
         let divReadMore = $('<div>', { class: 'pt-10' });
-        $('<a>', { href: '#', class: 'btn btn-outline-primary', html: 'Read More' }).appendTo(divReadMore);
+        $('<a>', { href: '#', onclick: `location.replace("/${model.id}/${model.trailer_url}/movies")` , class: 'btn btn-outline-primary', html: 'Read More' }).appendTo(divReadMore);
         divReadMore.appendTo(div211);
         div211.appendTo(div21);
         div21.appendTo(div2);
@@ -124,6 +135,49 @@ const state = {
         div1.appendTo(li);
 
         $('#movies-list').append(li);
+    },
+    detailWriter: (model) => {
+        if(model.id == $('#movie-id').val()){
+            console.log(model);            
+            $('.movie-title').html(model.title);
+            $('#movie-synopsis').html(model.synopsis);
+            $('#movie-ticket-price').html(`₱ ${model.ticket_price}.00`);
+            $('#movie-genre').html(model.genre_name);
+            $('#movie-director').html(model.director);
+            model.producers.split(', ').forEach(producer => {
+                $('#movie-producers').append($('<li>', { html: producer }));
+            })
+            model.screenplay_by.split(', ').forEach(screenplay => {
+                $('#movie-screenplays').append($('<li>', { html: screenplay }));
+            })
+            model.story_by.split(', ').forEach(story => {
+                $('#movie-stories').append($('<li>', { html: story }));
+            })
+            model.starring.split(', ').forEach(star => {
+                $('#movie-starring').append($('<li>', { html: star }));
+            })
+            $('#movie-music').html(model.music_by);
+            $('#movie-cinematography').html(model.cinematography);
+            model.edited_by.split(', ').forEach(edits => {
+                $('#movie-edits').append($('<li>', { html: edits }));
+            })
+
+            if(model.production_company){
+                model.production_company.split(', ').forEach(production_company => {
+                    $('#movie-production-company').append($('<li>', { html: production_company }));
+                })
+            }else{
+                $('#movie-production-company').append($('<li>', { html: 'There are no listed production company for this movie' }));
+            }
+            
+            model.distributed_by.split(', ').forEach(distribution => {
+                $('#movie-distribution').append($('<li>', { html: distribution }));
+            })
+
+            $('#movie-released').html(model.release_date);
+            $('#movie-running-time').html(`${model.running_time} minutes`);
+            $('#movie-language').html(`${model.language}`);
+        }
     }
 };
 

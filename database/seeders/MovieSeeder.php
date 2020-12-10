@@ -17,7 +17,7 @@ class MovieSeeder extends Seeder
     {
         DB::table('movies')->insert([
             [
-                'title'           => 'Spder-Man: Homecoming',
+                'title'           => 'Spider-Man: Homecoming',
                 'director'        => 'Jon Watts',
                 'running_time'    => 133,
                 'trailer_url'     => 'https://www.youtube.com/watch?v=n9DwoQ7HWvI',

@@ -17,3 +17,4 @@ Auth::routes();
 Route::get('/', function () { return view('welcome'); })->name('welcome');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/{role}/roles', function ($role) { return view('actors.roles.index', compact('role')); })->name('roles');
+Route::get('/{movie}/{trailer}/movies', function ($movie, $trailer) { return view('actors.movies.index', compact('movie', 'trailer')); })->name('movies');

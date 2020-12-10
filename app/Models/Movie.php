@@ -31,4 +31,23 @@ class Movie extends Model
         'cinematography',
         'synopsis'
     ];
+
+    protected $casts = [
+        'running_time' => 'integer',
+        'ticket_price' => 'double',
+        'genre_id'     => 'integer'
+    ];
+
+    protected $appends = [
+        'genre_name'  
+    ];
+
+    public function getGenreNameAttribute(){
+        if($this->genre){
+            return $this->genre->name;
+        }       
+        return null;     
+    }
+
+    public function genre(){return $this->belongsTo(Genre::class);}    
 }
