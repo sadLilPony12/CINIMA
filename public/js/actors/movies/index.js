@@ -57,13 +57,11 @@ const state = {
         // state.models = await fetch.translate(state.entity, { key: state.inputKey.value });
         if($('#movie-id').val()){
             state.models = await fetch.translate(state.entity1);
-            console.log(state.models);
             if (state.models) {
                 state.models.forEach(state.detailWriter);
             }
         }else{
             state.models = await fetch.translate(state.entity);
-            console.log(state.models);
             if (state.models) {
                 state.models.forEach(state.listWriter, state.activeIndex);
             }
@@ -138,7 +136,7 @@ const state = {
     },
     detailWriter: (model) => {
         if(model.id == $('#movie-id').val()){
-            console.log(model);            
+            // console.log(model);            
             $('.movie-title').html(model.title);
             $('#movie-synopsis').html(model.synopsis);
             $('#movie-ticket-price').html(`₱ ${model.ticket_price}.00`);

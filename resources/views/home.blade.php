@@ -151,7 +151,7 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label>Genre</label>
-                                <input type="text" name="genre" class="form-control">
+                                <select class="form-control genre-id" name="genre"></select>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12">
@@ -206,4 +206,5 @@
     <script src="{{ asset('js/plugins/jquery.bootstrap-touchspin.js') }}"></script>
     <script src="{{ asset('js/plugins/advanced-components.js') }}"></script>    
     <script type="module" src="{{ asset('js/actors/movies/index.js') }}"></script>
+    <script type="module" src="{{ asset('js/actors/genres/index.js') }}"></script>
 @endsection

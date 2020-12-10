@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\GenreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +35,11 @@ Route::prefix('/movies')->group(function () {
     Route::post('/save', [MovieController::class, 'save']);
     Route::put('/{role}/update', [MovieController::class, 'update']);
     Route::delete('/{role}/destroy', [MovieController::class, 'destroy']);
+});
+
+
+Route::prefix('/genres')->group(function () {
+    Route::get('/', [GenreController::class, 'index']);
+    Route::get('/movies', [GenreController::class, 'movies']);
+    Route::get('/list', [GenreController::class, 'list']);
 });

@@ -273,6 +273,7 @@ const plurals = {
     access: 'accesses',
     survey: 'surveys',
     surveykey: 'surveykeys',
+    genre: 'genres',
 };
 const pluralMap = new Map(Object.entries(plurals))
 const withEs = ['s', 'h', 'c'];
@@ -285,6 +286,7 @@ const pluralize = (word) => pluralMap.has(word) ? pluralMap.get(word) : (word.su
  * The $ at the end signifies the end of the string
  */
 const option_list = async (_model, _attri = 'name', searchKey = '', isRequired = true) => {
+    console.log(_model);
     // $(`.${_model}-id`).empty();
     if (!isRequired) { $(`.${_model}-id`).append($('<option>', { value: null, text: null })) }
     let models = await ask(`/api/${pluralize(_model)}/list`, searchKey);

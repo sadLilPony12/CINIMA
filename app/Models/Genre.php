@@ -12,6 +12,6 @@ class Genre extends Model
     protected $fillable = [        
         'name'
     ];
-
-    public function movies(){return $this->hasmany('App\Models\Movies');}
+    // Relationship
+    public function movies(){return $this->hasmany('App\Models\Movie');}
 }

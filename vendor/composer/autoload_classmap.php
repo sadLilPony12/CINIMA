@@ -31,6 +31,7 @@ return array(
     'App\\Models\\Genre' => $baseDir . '/app/Models/Genre.php',
     'App\\Models\\Movie' => $baseDir . '/app/Models/Movie.php',
     'App\\Models\\Role' => $baseDir . '/app/Models/Role.php',
+    'App\\Models\\Seat' => $baseDir . '/app/Models/Seat.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
