@@ -21,7 +21,8 @@ class CreateMoviesTable extends Migration
             $table->integer('running_time');            
             $table->string('trailer_url');            
             $table->string('status')->nullable();
-            $table->string('date_showing')->nullable();
+            $table->date('showing_at')->nullable();
+            $table->date('ending_at')->nullable();
             $table->string('producers');
             $table->string('starring');
             $table->string('screenplay_by');

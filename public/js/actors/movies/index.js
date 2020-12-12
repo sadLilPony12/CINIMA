@@ -20,6 +20,33 @@ import fetch from './../../fetch.js';
 $('body').on('click', '.btn-find', async(e) => state.onShow($(e.currentTarget).data('index')));
 $('body').on('click', '.btn-delete', (e) => state.onDestroy($(e.currentTarget).data("index")));
 $('body').on('click', '#btn-movie', (e) => state.onStore());
+$('body').on('click', '.purchase-ticket-modal', (e) => state.onPurchaseTicket($(e.currentTarget).data('id')));
+// $('body').on('click', '.seats', () => state.displaySeats());
+
+// $(document).ready(function(){
+//     $('.btn-group-toggle input[type="radio"]').click(function(){
+//         var value = $(this).val();
+//         var choice = value.split(',');
+//         var count = 20;
+
+//         if(choice[0] == 'orchestra'){
+//             count = 30;
+//         }
+
+//         $('#seat-count').empty();
+//         $('#seat-type').html(`${choice[0]} ${choice[1]}`)
+//         for(let i = 0; i < count; i++){    
+//             let label = $('<label>', { 
+//                             class: 'btn btn btn-outline-primary', 
+//                             html: $('<input>', { type: "checkbox", autocomplete: 'off' }) });
+//             $('<span>', { class: 'icon-copy dw dw-chair' }).appendTo(label);
+
+//             let button = $('<button>', { class: 'btn btn-outline-primary' });
+//             $('<i>', { class: 'icon-copy dw dw-chair' }).appendTo(button);
+//             $(`#seat-count`).append(label);
+//         }
+//     });
+// });
 
 const state = {
     /* [Table] */
@@ -41,6 +68,7 @@ const state = {
     activeIndex: 0,
     btnUpdate: null,
     btnDelete: null,
+    pathname: window.location.pathname,
     /* [initialized] */
     init: () => {
         // Attach listeners
@@ -50,7 +78,41 @@ const state = {
         // state.btnLook.disabled = false;
         // const loader = document.querySelector(".loader");
         // loader.className += " hidden";
-        state.ask();     
+        state.ask();   
+        state.now_showing();  
+        state.coming_soon();   
+    },
+    // displaySeats: () => {
+    //     let seatType = $('.btn-group-toggle input[type="radio]"').val();
+    //     alert(seatType);
+    // },
+    onPurchaseTicket: (e) => {
+        //movie id is e
+        $('#purchase-ticket-modal').modal('show'); 
+    },
+    now_showing: async() => {
+        let now_showing_url = 'api/movies/showing';
+        let url = state.pathname.split('/');
+        if(url.length == 4){
+            now_showing_url = '../../api/movies/showing';            
+        }
+
+        state.models = await fetch.ask(now_showing_url);
+        if (state.models) {
+            state.models.forEach(state.showing_list);
+        }        
+    },
+    coming_soon: async() => {
+        let coming_soon_url = 'api/movies/coming/soon';
+        let url = state.pathname.split('/');
+        if(url.length == 4){
+            coming_soon_url = '../../api/movies/coming/soon';         
+        }       
+
+        state.models = await fetch.ask(coming_soon_url);
+        if (state.models) {
+            state.models.forEach(state.coming_soon_list);
+        }        
     },
     /* [ACTIONS] */
     ask: async() => {
@@ -176,6 +238,15 @@ const state = {
             $('#movie-running-time').html(`${model.running_time} minutes`);
             $('#movie-language').html(`${model.language}`);
         }
+    },
+    showing_list: (model) => {
+        let li = $('<li>');
+        $('<h4>', { html: $('<a>', { href: '#', html: model.title, class: 'purchase-ticket-modal', 'data-id': model.id  }) }).appendTo(li);
+        $('<span>', { html: `₱ ${model.ticket_price}.00 - per ticket` }).appendTo(li);
+        $('#showing-list').append(li);      
+    },
+    coming_soon_list: (model) => {
+        $('#coming-soon-list').append($('<a>', { href: '#', class: 'list-group-item d-flex align-items-center justify-content-between', html: model.title }));     
     }
 };
 

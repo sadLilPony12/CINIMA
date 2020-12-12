@@ -32,6 +32,9 @@ Route::prefix('/roles')->group(function () {
 Route::prefix('/movies')->group(function () {
     Route::get('/', [MovieController::class, 'index']);
     Route::get('/list', [MovieController::class, 'list']);
+    Route::get('/expired', [MovieController::class, 'expired']);
+    Route::get('/showing', [MovieController::class, 'showing']);
+    Route::get('/coming/soon', [MovieController::class, 'coming_soon']);
     Route::post('/save', [MovieController::class, 'save']);
     Route::put('/{role}/update', [MovieController::class, 'update']);
     Route::delete('/{role}/destroy', [MovieController::class, 'destroy']);

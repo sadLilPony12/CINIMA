@@ -14,3 +14,15 @@ Author: Ankit Hingarajiya - DeskApp
     font-size: 22px;
     height: 200px;
 }
+
+.hide_it{
+    display:none;
+}
+
+.center_it{
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 40%;
+    bottom: 0%;
+}

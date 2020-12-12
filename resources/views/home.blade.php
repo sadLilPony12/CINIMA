@@ -3,6 +3,7 @@
 @section('css')
     <link href="{{ asset('css/plugins/bootstrap-tagsinput.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/jquery.bootstrap-touchspin.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/jquery.steps.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -205,6 +206,8 @@
     <script src="{{ asset('js/plugins/bootstrap-tagsinput.js') }}"></script>
     <script src="{{ asset('js/plugins/jquery.bootstrap-touchspin.js') }}"></script>
     <script src="{{ asset('js/plugins/advanced-components.js') }}"></script>    
+    <script src="{{ asset('js/plugins/jquery.steps.js') }}"></script>
+    <script src="{{ asset('js/plugins/steps-setting.js') }}"></script>
     <script type="module" src="{{ asset('js/actors/movies/index.js') }}"></script>
     <script type="module" src="{{ asset('js/actors/genres/index.js') }}"></script>
 @endsection

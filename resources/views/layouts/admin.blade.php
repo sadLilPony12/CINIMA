@@ -170,7 +170,13 @@
 						<a href="{{ route('home') }}" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
 						</a>
-					</li>		
+					</li>	
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon ti-video-clapper"></span><span class="mtext">Categories</span>
+						</a>
+						<ul class="submenu" id="menu-categories"></ul>
+					</li>	
 					@if(Auth::user()->role_id == 1)
 						<li class="dropdown">
 							<a href="javascript:;" class="dropdown-toggle">
@@ -198,6 +204,8 @@
 			</div>
 		</div>
 	</div>
+
+	@include('modal')
 	<!-- js -->
 	<script src="{{ asset('js/sweetalert.js') }}"></script>
     <script src="{{ asset('js/core.js') }}"></script>

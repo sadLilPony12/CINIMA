@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use Illuminate\Http\Request;
-use Response;
+use Response, Carbon\Carbon;
 
 class MovieController extends Controller
 {
@@ -15,6 +15,24 @@ class MovieController extends Controller
 
     public function find($movies){
         return $movies=Movie::whereUserId($movies)->first();
+    }
+
+    public function expired(){
+        return $movies=Movie::whereDate('ending_at', '<', Carbon::today()->toDateString())
+                            ->get();
+    }
+
+    public function showing(){
+        return $movies=Movie::whereDate('showing_at', '<=', Carbon::today()->toDateString())
+                            ->whereDate('ending_at', '>=', Carbon::today()->toDateString())
+                            ->limit(4)
+                            ->get();
+    }
+
+    public function coming_soon(){
+        return $movies=Movie::whereDate('showing_at', '>', Carbon::today()->toDateString())
+                            ->limit(4)
+                            ->get();
     }
 
     public function list(){

@@ -40,6 +40,7 @@ const genre = {
         genre.models = await fetch.ask(baseUrl);
         if (genre.models) {
             genre.models.forEach(genre.genreList);
+            genre.models.forEach(genre.menuGenreList);
         }        
     },
     genreList: (model) => {  
@@ -48,8 +49,10 @@ const genre = {
         $('<span>', { class: 'badge badge-primary badge-pill', html: model.movies.length }).appendTo(genre);
         $('#genres-list').append(genre);
     },
-    genreDropdown: (model) => {
-
+    menuGenreList: (model) => {
+        let li = $('<li>');
+        $('<a>', { href: '#', html: model.name }).appendTo(li);
+        $('#menu-categories').append(li);
     }
 };
 
