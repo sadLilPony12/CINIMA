@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('css')
     <link href="{{ asset('css/plugins/bootstrap-tagsinput.css') }}" rel="stylesheet">

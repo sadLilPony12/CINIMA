@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('css')
     <link href="{{ asset('css/plugins/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
@@ -46,6 +46,7 @@
 
 @section('javascript')
   <script type="module" src="{{ asset('js/actors/roles/index.js') }}"></script>
+  <script type="module" src="{{ asset('js/actors/genres/index.js') }}"></script>
   <script src="{{ asset('js/plugins/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('js/plugins/dataTables.bootstrap4.min.js') }}"></script>
   <script src="{{ asset('js/plugins/dataTables.responsive.min.js') }}"></script>

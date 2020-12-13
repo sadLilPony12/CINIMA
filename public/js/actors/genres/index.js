@@ -34,7 +34,7 @@ const genre = {
         let baseUrl = 'api/genres/movies';
         var pathname = window.location.pathname;        
         let url = pathname.split('/');
-        if(url.length == 4){
+        if(url.length == 4 || url.length == 3){
             baseUrl = '../../api/genres/movies';
         }
         genre.models = await fetch.ask(baseUrl);

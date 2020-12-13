@@ -8,8 +8,13 @@ $(".tab-wizard").steps({
 	},
 	onStepChanged: function (event, currentIndex, priorIndex) {
 		$('.steps .current').prevAll().addClass('disabled');
+
+		if(currentIndex == 2){
+			$('#compute-price').trigger('click');
+		}
 	},
 	onFinished: function (event, currentIndex) {
+		$('#save-seats').trigger('click');
 		$('#success-modal').modal('show');
 	}
 });

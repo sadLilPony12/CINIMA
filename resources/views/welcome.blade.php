@@ -81,16 +81,10 @@
 				<div class="col-md-6 col-lg-5">
 					<div class="login-box bg-white box-shadow border-radius-10">
 						<div class="login-title">
-							<h2 class="text-center text-primary">Movie schedules</h2>
+							<h2 class="text-center text-primary">Now showing worldwide!</h2>
                         </div>
                         <div class="pd-20 card-box height-100-p">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Cras justo odio</li>
-                                <li class="list-group-item">Dapibus ac facilisis in</li>
-                                <li class="list-group-item">Morbi leo risus</li>
-                                <li class="list-group-item">Porta ac consectetur ac</li>
-                                <li class="list-group-item">Vestibulum at eros</li>
-                            </ul>
+                            <ul class="list-group list-group-flush" id="showing-list"></ul>
                         </div>
 					</div>
 				</div>
@@ -102,5 +96,6 @@
     <script src="{{ asset('js/layout-settings.js') }}"></script>
     <script src="{{ asset('js/process.js') }}"></script>
     <script src="{{ asset('js/script.min.js') }}"></script>
+    <script type="module" src="{{ asset('js/actors/movies/index.js') }}"></script>
 </body>
 </html>

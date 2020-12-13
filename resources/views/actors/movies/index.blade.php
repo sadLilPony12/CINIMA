@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('css')
     <link href="{{ asset('css/plugins/plyr.css') }}" rel="stylesheet">
@@ -20,11 +20,6 @@
                     <li class="breadcrumb-item active" aria-current="page">Movie details</li>
                 </ol>
             </nav>
-        </div>
-        <div class="col-md-6 col-sm-12 text-right">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#purchase-ticket-modal">
-                <i class="icon-copy dw dw-money-2"></i> Purchase ticket
-            </button>
         </div>
     </div>
 </div>

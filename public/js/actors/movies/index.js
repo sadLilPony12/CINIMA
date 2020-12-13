@@ -20,9 +20,13 @@ import fetch from './../../fetch.js';
 $('body').on('click', '.btn-find', async(e) => state.onShow($(e.currentTarget).data('index')));
 $('body').on('click', '.btn-delete', (e) => state.onDestroy($(e.currentTarget).data("index")));
 $('body').on('click', '#btn-movie', (e) => state.onStore());
-$('body').on('click', '.purchase-ticket-modal', (e) => state.onPurchaseTicket($(e.currentTarget).data('id')));
+$('body').on('click', '.purchase-ticket-modal', (e) => state.onPurchaseTicket($(e.currentTarget).data('index'), $(e.currentTarget).data('id')));
 $('body').on('click', '.seats', (e) => state.displaySeats(e));
 $('body').on('click', '.reserved', (e) => state.onReserve(e));
+$('body').on('click', '#compute-price', () => state.onCompute());
+$('body').on('change', '#view-date', () => state.onViewDate());
+$('body').on('click', '#reserve-seat-submit', () => state.onStore());
+$('body').on('click', '#save-seats', () => state.onSaveSeat());
 
 const state = {
     /* [Table] */
@@ -34,8 +38,14 @@ const state = {
         name: 'movie',
         baseUrl: '../../api'
     },
+    sub_entity: {
+        name: 'seat',
+        baseUrl: 'api'
+    },
     /* [Object Mapping] */
     models: [],
+    models1: [],
+    reserved: [],
     /* [Tag object] */
     btnNew: document.getElementById("btn-new"),
     // btnLook: document.getElementById("look"),
@@ -58,6 +68,34 @@ const state = {
         state.now_showing();  
         state.coming_soon();   
     },
+    onSaveSeat: () => {
+        alert(state.reserved[2])
+        alert(state.reserved[3])
+        console.log(state.reserved);        
+        $('#seat-row').val(state.reserved[2]);
+        $('#seat-column').val(state.reserved[3]);
+    },
+    onViewDate: () => {
+        let index = $('#movie-index').val();
+        let model = state.models[index];
+        let view_date = $('#view-date').val();
+        view_date = new Date(view_date);
+        
+        if(view_date >= new Date(model.showing_at) && view_date <= new Date(model.ending_at)){
+            
+        }else{
+            alert('Oops, the date you\'ve entered isnt on the date range.')
+            $('#view-date').val('');
+        }
+    },
+    onCompute: () => {
+        let index = $('#movie-index').val();
+        let model = state.models[index];
+
+        let total_price = model.ticket_price * state.reserved.length;
+
+        $('#total-price').val(total_price);
+    },
     displaySeats: (e) => {
         let seat_type = $(e.currentTarget).data('id');
 
@@ -71,7 +109,7 @@ const state = {
         let tr = $('<tr>');
         $('<td>', { html: i }).appendTo(tr);
 
-           for(let x = 0; x < 7; x++){            
+           for(let x = 1; x < 8; x++){            
                 let td = $('<td>');
                 let button = $('<button>', { 
                                     type: 'button', 
@@ -87,9 +125,14 @@ const state = {
         $('#seat-table').append(tr);
        }
     },
-    onPurchaseTicket: (e) => {
-        //movie id is e
+    onPurchaseTicket: (e, id) => {
+        let model = state.models[e];
+
         $('#purchase-ticket-modal').modal('show'); 
+        $('#movie-index').val(e);
+        $('#movie-id').val(id);
+        $('#view-date').attr('placeholder', `From ${model.showing_at} to ${model.ending_at} only`);
+        // alert(e)
     },
     now_showing: async() => {
         let now_showing_url = 'api/movies/showing';
@@ -100,7 +143,11 @@ const state = {
 
         state.models = await fetch.ask(now_showing_url);
         if (state.models) {
-            state.models.forEach(state.showing_list);
+            if(url[1] == 'home'){
+                state.models.forEach((model, index) => {state.showing_list(model, index)});
+            }else{
+                state.models.forEach(state.showing_welcome);
+            }           
         }        
     },
     coming_soon: async() => {
@@ -110,9 +157,9 @@ const state = {
             coming_soon_url = '../../api/movies/coming/soon';         
         }       
 
-        state.models = await fetch.ask(coming_soon_url);
-        if (state.models) {
-            state.models.forEach(state.coming_soon_list);
+        state.models1 = await fetch.ask(coming_soon_url);
+        if (state.models1) {
+            state.models1.forEach(state.coming_soon_list);
         }        
     },
     /* [ACTIONS] */
@@ -146,11 +193,13 @@ const state = {
         fetch.setModal(state.models[i]);
     },
     onStore: async() => {
-        let params = $('#set-Model').serializeArray();
-        let model = await fetch.store(state.entity, params);
-        state.models.push(model)
-        fetch.writer(state.entity, model);
-        $('#movie-modal').modal('hide')
+        let params = $('#reserve-seat').serializeArray();
+        console.log(params);
+        // let model = await fetch.store(state.entity, params);
+        // state.models.push(model)
+        // fetch.writer(state.entity, model);
+        $('#purchase-ticket-modal').modal('hide')
+        $('#success-modal').modal('hide')
     },
     onUpdate: async() => {
         let params = $('#set-Model').serializeArray();
@@ -240,9 +289,9 @@ const state = {
             $('#movie-language').html(`${model.language}`);
         }
     },
-    showing_list: (model) => {
+    showing_list: (model, i) => {  
         let li = $('<li>');
-        $('<h4>', { html: $('<a>', { href: '#', html: model.title, class: 'purchase-ticket-modal', 'data-id': model.id  }) }).appendTo(li);
+        $('<h4>', { html: $('<a>', { href: '#', html: model.title, class: 'purchase-ticket-modal', 'data-id': model.id, 'data-index': i  }) }).appendTo(li);
         $('<span>', { html: `₱ ${model.ticket_price}.00 - per ticket` }).appendTo(li);
         $('#showing-list').append(li);      
     },
@@ -252,24 +301,36 @@ const state = {
     onReserve: (e) => {
         let will_remove = $(e.currentTarget).attr('aria-pressed') == 'false' ? false: true;
         let position = $(e.currentTarget).data('seat').split(',');
-        
+               
+        $('#table-reserved').empty()
+        const item= $(e.currentTarget).data('seat');
         if(will_remove){
-            alert($(e.currentTarget).data('seat'))
-            $('#orchestra,b,1,3').remove();
+           
+            // console.log(state.reserved);
+
+            state.reserved = jQuery.grep(state.reserved, function(value) {
+                 return value[4] !== item;
+            });
         }else{
-            var index = $("#table-reserved tr").length;
+            position.push(item)
+            state.reserved.push(position);              
+        }        
+
+        state.reserved.forEach((seat, index) => {                
             let tr = $('<tr>', { id: $(e.currentTarget).data('seat') });
             $('<td>', { html: ++index }).appendTo(tr)
-            $('<td>', { html: position[0] }).appendTo(tr)
-            $('<td>', { html: position[1] }).appendTo(tr)
-            $('<td>', { html: position[2] }).appendTo(tr)
-            $('<td>', { html: position[3] }).appendTo(tr)
+            $('<td>', { html: seat[0] }).appendTo(tr)
+            $('<td>', { html: seat[1] }).appendTo(tr)
+            $('<td>', { html: seat[2] }).appendTo(tr)
+            $('<td>', { html: seat[3] }).appendTo(tr)
             $('#table-reserved').append(tr)
-        }
-
+        })
         
         // alert($(e.currentTarget).data('seat'));
         // alert($(e.currentTarget).attr('aria-pressed'))
+    },
+    showing_welcome: (model) => {
+        $('<li>', { class: 'list-group-item', html:`${model.title}` }).appendTo($('#showing-list'));
     }
 };
 

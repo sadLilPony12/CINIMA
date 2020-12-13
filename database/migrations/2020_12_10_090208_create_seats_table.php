@@ -16,7 +16,13 @@ class CreateSeatsTable extends Migration
         Schema::create('seats', function (Blueprint $table) {
             $table->id();
             $table->string('movie_id');
-            $table->string('type');
+            $table->string('user_id');
+            $table->string('seat_type');
+            $table->string('seat_column');
+            $table->string('seat_row');
+            $table->string('view_date');
+            $table->string('total_price');
+            $table->string('view_time');
             $table->timestamps();
         });
     }

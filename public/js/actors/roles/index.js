@@ -131,11 +131,6 @@ const state = {
             }).appendTo(action_div);
         let action_div_dropdown = $('<div>', { class: 'dropdown-menu dropdown-menu-right dropdown-menu-icon-list' });
 
-            let action_view = $('<a>', { class: 'dropdown-item', href: '#' });
-                $('<i>', { class: 'dw dw-eye' }).appendTo(action_view);
-                $('<span>', { html: 'View' }).appendTo(action_view);
-            action_view.appendTo(action_div_dropdown);
-
             let action_delete = $('<a>', { class: 'dropdown-item btn-delete', href: '#', 'data-id': index });
                 $('<i>', { class: 'dw dw-delete-3' }).appendTo(action_delete);
                 $('<span>', { html: 'Delete' }).appendTo(action_delete);  

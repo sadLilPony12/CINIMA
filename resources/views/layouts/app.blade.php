@@ -3,7 +3,7 @@
 <head>
 	<!-- Basic Page Info -->
 	<meta charset="utf-8">
-	<title>Cinema | Administrator page</title>
+	<title>Cinema | Home page</title>
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -32,8 +32,8 @@
 	<div class="header">
 		<div class="header-left">
 			<div class="menu-icon dw dw-menu"></div>
-			<div class="search-toggle-icon dw dw-search2" data-toggle="header_search"></div>
-			<div class="header-search">
+			<div class="search-toggle-icon dw dw-search2" data-toggle="header_search" style="visibility: hidden;"></div>
+			<div class="header-search" style="visibility: hidden;">
 				<form>
 					<div class="form-group mb-0">
 						<i class="dw dw-search2 search-icon"></i>
@@ -51,19 +51,13 @@
 			<div class="user-info-dropdown">
 				<div class="dropdown">
 					<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-						<span class="user-icon">
-							<!-- <img src="vendors/images/photo1.jpg" alt=""> -->
-						</span>
+						<i class="user-icon icon-copy dw dw-user-12"></i>
 						<span class="user-name">{{ ucfirst(Auth::user()->username) }}</span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-						<a class="dropdown-item" href="profile.html">
-                            <i class="dw dw-user1"></i> Profile
-                        </a>
 						<a class="dropdown-item" href="javascript:;" data-toggle="right-sidebar">
                             <i class="dw dw-settings2"></i> Settings
                         </a>
-						<a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
