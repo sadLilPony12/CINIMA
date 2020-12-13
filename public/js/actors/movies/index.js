@@ -21,32 +21,8 @@ $('body').on('click', '.btn-find', async(e) => state.onShow($(e.currentTarget).d
 $('body').on('click', '.btn-delete', (e) => state.onDestroy($(e.currentTarget).data("index")));
 $('body').on('click', '#btn-movie', (e) => state.onStore());
 $('body').on('click', '.purchase-ticket-modal', (e) => state.onPurchaseTicket($(e.currentTarget).data('id')));
-// $('body').on('click', '.seats', () => state.displaySeats());
-
-// $(document).ready(function(){
-//     $('.btn-group-toggle input[type="radio"]').click(function(){
-//         var value = $(this).val();
-//         var choice = value.split(',');
-//         var count = 20;
-
-//         if(choice[0] == 'orchestra'){
-//             count = 30;
-//         }
-
-//         $('#seat-count').empty();
-//         $('#seat-type').html(`${choice[0]} ${choice[1]}`)
-//         for(let i = 0; i < count; i++){    
-//             let label = $('<label>', { 
-//                             class: 'btn btn btn-outline-primary', 
-//                             html: $('<input>', { type: "checkbox", autocomplete: 'off' }) });
-//             $('<span>', { class: 'icon-copy dw dw-chair' }).appendTo(label);
-
-//             let button = $('<button>', { class: 'btn btn-outline-primary' });
-//             $('<i>', { class: 'icon-copy dw dw-chair' }).appendTo(button);
-//             $(`#seat-count`).append(label);
-//         }
-//     });
-// });
+$('body').on('click', '.seats', (e) => state.displaySeats(e));
+$('body').on('click', '.reserved', (e) => state.onReserve(e));
 
 const state = {
     /* [Table] */
@@ -82,10 +58,35 @@ const state = {
         state.now_showing();  
         state.coming_soon();   
     },
-    // displaySeats: () => {
-    //     let seatType = $('.btn-group-toggle input[type="radio]"').val();
-    //     alert(seatType);
-    // },
+    displaySeats: (e) => {
+        let seat_type = $(e.currentTarget).data('id');
+
+        let row_count = 2;
+       if(seat_type === 'orchestra,a' || seat_type === 'orchestra,b'){
+            row_count = 3;
+       }
+
+       $('#seat-table').empty();
+       for(let i = 1; i <= row_count; i++){
+        let tr = $('<tr>');
+        $('<td>', { html: i }).appendTo(tr);
+
+           for(let x = 0; x < 7; x++){            
+                let td = $('<td>');
+                let button = $('<button>', { 
+                                    type: 'button', 
+                                    class: 'btn btn-outline-primary reserved', 
+                                    'data-toggle': 'button',
+                                    'aria-pressed': 'false',
+                                    'data-seat': `${seat_type},${i},${x}`,
+                                    autocomplete: 'off' });
+                $('<span>', { class: 'icon-copy dw dw-chair' }).appendTo(button);
+                button.appendTo(td);
+                td.appendTo(tr);
+           }
+        $('#seat-table').append(tr);
+       }
+    },
     onPurchaseTicket: (e) => {
         //movie id is e
         $('#purchase-ticket-modal').modal('show'); 
@@ -247,6 +248,28 @@ const state = {
     },
     coming_soon_list: (model) => {
         $('#coming-soon-list').append($('<a>', { href: '#', class: 'list-group-item d-flex align-items-center justify-content-between', html: model.title }));     
+    },
+    onReserve: (e) => {
+        let will_remove = $(e.currentTarget).attr('aria-pressed') == 'false' ? false: true;
+        let position = $(e.currentTarget).data('seat').split(',');
+        
+        if(will_remove){
+            alert($(e.currentTarget).data('seat'))
+            $('#orchestra,b,1,3').remove();
+        }else{
+            var index = $("#table-reserved tr").length;
+            let tr = $('<tr>', { id: $(e.currentTarget).data('seat') });
+            $('<td>', { html: ++index }).appendTo(tr)
+            $('<td>', { html: position[0] }).appendTo(tr)
+            $('<td>', { html: position[1] }).appendTo(tr)
+            $('<td>', { html: position[2] }).appendTo(tr)
+            $('<td>', { html: position[3] }).appendTo(tr)
+            $('#table-reserved').append(tr)
+        }
+
+        
+        // alert($(e.currentTarget).data('seat'));
+        // alert($(e.currentTarget).attr('aria-pressed'))
     }
 };
 
