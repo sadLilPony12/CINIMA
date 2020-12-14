@@ -27,6 +27,7 @@ $('body').on('click', '#compute-price', () => state.onCompute());
 $('body').on('change', '#view-date', () => state.onViewDate());
 $('body').on('click', '#reserve-seat-submit', () => state.onStore());
 $('body').on('click', '#save-seats', () => state.onSaveSeat());
+// $('body').on('change', '#check-db', () => state.CheckDb());
 
 const state = {
     /* [Table] */
@@ -69,11 +70,31 @@ const state = {
         state.coming_soon();   
     },
     onSaveSeat: () => {
-        alert(state.reserved[2])
-        alert(state.reserved[3])
-        console.log(state.reserved);        
-        $('#seat-row').val(state.reserved[2]);
-        $('#seat-column').val(state.reserved[3]);
+        // let model = [];
+        // state.reserved.forEach(reserve => {
+        //     // model= reserve.splice(4, 1)
+        //     model.push(reserve.splice(4, 1))
+        //     console.log(model);
+        // });
+       
+        $('#seat-position').val(state.reserved);
+    },
+     CheckDb: async() => {
+       console.log(state.reserved);
+       
+       let view_date = $('#view-date').val();
+       if (view_date) {
+           let seat_position = $('#seat-position').val();
+           console.log(seat_position);
+          let view_time = $('#check-db').val()
+          let model = await fetch.ask(`./api/seats/reserve`, {type:seat_position, time:view_time, date:view_date})
+          if (model) {
+              alert('The seat(s) you\'ve chosen are already reserved, please choose a different seat. ')
+              location.reload();
+          }
+       }else{
+           alert('Please choose a date first')
+       }
     },
     onViewDate: () => {
         let index = $('#movie-index').val();
@@ -195,11 +216,12 @@ const state = {
     onStore: async() => {
         let params = $('#reserve-seat').serializeArray();
         console.log(params);
-        // let model = await fetch.store(state.entity, params);
+        let model = await fetch.store(state.sub_entity, params);
+        console.log(model);
         // state.models.push(model)
         // fetch.writer(state.entity, model);
-        $('#purchase-ticket-modal').modal('hide')
-        $('#success-modal').modal('hide')
+        // $('#purchase-ticket-modal').modal('hide')
+        // $('#success-modal').modal('hide')
     },
     onUpdate: async() => {
         let params = $('#set-Model').serializeArray();
@@ -312,7 +334,8 @@ const state = {
                  return value[4] !== item;
             });
         }else{
-            position.push(item)
+            position.push(item);
+            console.log(position);
             state.reserved.push(position);              
         }        
 

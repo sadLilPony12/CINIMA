@@ -13,8 +13,7 @@
 					<button type="button" style="display:none;" id="save-seats"></button>
 						<form class="tab-wizard wizard-circle wizard" id="reserve-seat">	
 							<input type="hidden" name="user_id" value="{{ Auth::user()->id }}">	
-							<input type="hidden" name="seat_column" id="seat-column">	
-							<input type="hidden" name="seat_row" id="seat-row">	
+							<input type="hidden" name="seat_position" id="seat-position">	
 							<input type="hidden" name="movie_id" id="movie-id">				
 							<h5>Seat type</h5>
 							<section>								
@@ -110,7 +109,8 @@
 										</div>										
 										<div class="form-group">
 											<label>What time would you like to be reserved?</label>
-											<select class="form-control" name="view_time">
+											<select class="form-control" name="view_time" id="check-db">
+												<option>Select a time</option>
 												<option value="10">10am onwards</option>
 												<option value="1">1pm onwards</option>
 												<option value="4">4pm onwards</option>

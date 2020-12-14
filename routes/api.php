@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\SeatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,15 @@ Route::prefix('/movies')->group(function () {
     Route::post('/save', [MovieController::class, 'save']);
     Route::put('/{role}/update', [MovieController::class, 'update']);
     Route::delete('/{role}/destroy', [MovieController::class, 'destroy']);
+});
+
+Route::prefix('/seats')->group(function () {
+    Route::get('/', [SeatController::class, 'index']);
+    Route::get('/list', [SeatController::class, 'list']);
+    Route::get('/reserve', [SeatController::class, 'reserve']);
+    Route::post('/save', [SeatController::class, 'save']);
+    Route::put('/{seat}/update', [SeatController::class, 'update']);
+    Route::delete('/{seat}/destroy', [SeatController::class, 'destroy']);
 });
 
 

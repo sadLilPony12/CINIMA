@@ -10,11 +10,12 @@ $(".tab-wizard").steps({
 		$('.steps .current').prevAll().addClass('disabled');
 
 		if(currentIndex == 2){
+		$('#save-seats').trigger('click');
 			$('#compute-price').trigger('click');
 		}
 	},
 	onFinished: function (event, currentIndex) {
-		$('#save-seats').trigger('click');
+		// $('#save-seats').trigger('click');
 		$('#success-modal').modal('show');
 	}
 });
