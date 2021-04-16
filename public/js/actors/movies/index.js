@@ -19,7 +19,7 @@ import fetch from './../../fetch.js';
 
 $('body').on('click', '.btn-find', async(e) => state.onShow($(e.currentTarget).data('index')));
 $('body').on('click', '.btn-delete', (e) => state.onDestroy($(e.currentTarget).data("index")));
-$('body').on('click', '#btn-movie', (e) => state.onStore());
+$('body').on('click', '#btn-movie', (e) => state.onStoreMovie());
 $('body').on('click', '.purchase-ticket-modal', (e) => state.onPurchaseTicket($(e.currentTarget).data('index'), $(e.currentTarget).data('id')));
 $('body').on('click', '.seats', (e) => state.displaySeats(e));
 $('body').on('click', '.reserved', (e) => state.onReserve(e));
@@ -95,6 +95,13 @@ const state = {
        }else{
            alert('Please choose a date first')
        }
+    },
+    onStoreMovie: async() => {
+        let params = $('#set-Model').serializeArray();
+        let model = await fetch.store(state.entity, params);
+        state.models.push(model)
+        fetch.writer(state.entity, model);
+        $('#movie-modal').modal('hide')
     },
     onViewDate: () => {
         let index = $('#movie-index').val();
@@ -220,8 +227,8 @@ const state = {
         console.log(model);
         // state.models.push(model)
         // fetch.writer(state.entity, model);
-        // $('#purchase-ticket-modal').modal('hide')
-        // $('#success-modal').modal('hide')
+        $('#purchase-ticket-modal').modal('hide')
+        $('#success-modal').modal('hide')
     },
     onUpdate: async() => {
         let params = $('#set-Model').serializeArray();
@@ -248,7 +255,7 @@ const state = {
 
         let div1 = $('<div>', { class: 'row no-gutters' });
         let div11 = $('<div>', { class: 'col-lg-4 col-md-12 col-sm-12' });
-        let div111 = $('<div>', { class: 'blog-img', style: 'background: url("./../../../images/img1.jpg") center center no-repeat;' });
+        let div111 = $('<div>', { class: 'blog-img', style: `background: url("./../../../images/avatar/${model.avatar}") center center no-repeat;` });
         div111.appendTo(div11);
         div11.appendTo(div1);
 

@@ -18,6 +18,7 @@ class MovieSeeder extends Seeder
         DB::table('movies')->insert([
             [
                 'title'           => 'Spider-Man: Homecoming',
+                'avatar'           => 'spiderman.jpg',
                 'director'        => 'Jon Watts',
                 'running_time'    => 133,
                 'trailer_url'     => 'n9DwoQ7HWvI',
@@ -38,6 +39,7 @@ class MovieSeeder extends Seeder
             ],
             [
                 'title'           => 'The Croods',
+                'avatar'           => 'the croods.jpg',
                 'director'        => 'Kirk DeMicco, Chris Sanders',
                 'running_time'    => 98,
                 'trailer_url'     => '4fVCKy69zUY',
@@ -58,6 +60,7 @@ class MovieSeeder extends Seeder
             ],
             [
                 'title'           => 'Train to Busan',
+                'avatar'           => 'train-to-busan.jpeg',
                 'director'        => 'Yeon Sang-ho',
                 'running_time'    => 118,
                 'trailer_url'     => 'pyWuHv2-Abk',
@@ -78,6 +81,7 @@ class MovieSeeder extends Seeder
             ],
             [
                 'title'           => 'Pee Mak',
+                'avatar'           => 'peemak.jpg',
                 'director'        => 'Banjong Pisanthanakun',
                 'running_time'    => 115,
                 'trailer_url'     => 'B9xbj_UK1pc',
@@ -98,6 +102,7 @@ class MovieSeeder extends Seeder
             ],
             [
                 'title'           => 'Jumanji',
+                'avatar'           => 'jumanji.jpg',
                 'director'        => 'Joe Johnston',
                 'running_time'    => 104,
                 'trailer_url'     => '8WaAUE4MXs8',
@@ -118,9 +123,10 @@ class MovieSeeder extends Seeder
             ],
             [
                 'title'           => 'Fast and Furious 8',
+                'avatar'           => 'faf 8.jpg',
                 'director'        => 'F. Gary Gray',
                 'running_time'    => 104,
-                'trailer_url'     => 'https://www.youtube.com/watch?v=8WaAUE4MXs8',
+                'trailer_url'     => '8WaAUE4MXs8',
                 'producers'       => 'Neal H. Moritz, Vin Diesel',
                 'starring'        => 'Vin Diesel, Michelle Rodriguez, Dwayne Johnson, Tyrese Gibson, Chris Bridges, Lucas Black, Scott Eastwood, Kurt Russell, Jason Statham, Charlize Theron',
                 'screenplay_by'   => 'Jonathan Hensleigh, Greg Taylor, Jim Strain',
@@ -138,9 +144,10 @@ class MovieSeeder extends Seeder
             ],
             [
                 'title'           => 'Dora and the Lost City of Gold',
+                'avatar'           => 'dora.jpg',
                 'director'        => 'James Bobin',
                 'running_time'    => 102,
-                'trailer_url'     => 'https://www.youtube.com/watch?v=gUTtJjV852c',
+                'trailer_url'     => 'gUTtJjV852c',
                 'producers'       => 'Kristin Burr',
                 'starring'        => 'Isabela Moner, Eugenio Derbez, Michael Peña, Eva Longoria, Danny Trejo',
                 'screenplay_by'   => 'Nicholas Stoller, Matthew Robinson',
@@ -158,9 +165,10 @@ class MovieSeeder extends Seeder
             ],
             [
                 'title'           => 'Anna',
+                'avatar'           => 'anna.jpg',
                 'director'        => ' Luc Besson',
                 'running_time'    => 119,
-                'trailer_url'     => 'https://www.youtube.com/watch?v=Z6yTXsCauIc',
+                'trailer_url'     => 'Z6yTXsCauIc',
                 'producers'       => 'Luc Besson, Marc Shmuger',
                 'starring'        => 'Sasha Luss, Luke Evans, Cillian Murphy, Helen Mirren',
                 'screenplay_by'   => 'Luc Besson',
@@ -178,9 +186,10 @@ class MovieSeeder extends Seeder
             ],
             [
                 'title'           => 'The Notebook',
+                'avatar'           => 'the notebook.jpg',
                 'director'        => '  Nick Cassavetes',
                 'running_time'    => 124,
-                'trailer_url'     => 'https://www.youtube.com/watch?v=FC6biTjEyZw',
+                'trailer_url'     => 'FC6biTjEyZw',
                 'producers'       => 'Lynn Harris, Mark Johnson',
                 'starring'        => '	Ryan Gosling, Rachel McAdams, James Garner, Gena Rowlands, James Marsden, Kevin Connolly, Sam Shepard, Joan Allen',
                 'screenplay_by'   => 'Jeremy Leven',
@@ -198,9 +207,10 @@ class MovieSeeder extends Seeder
             ],
              [
                 'title'           => 'Ready Player One',
+                'avatar'           => 'ready player one.webp',
                 'director'        => ' Steven Spielberg',
                 'running_time'    => 140,
-                'trailer_url'     => 'https://www.youtube.com/watch?v=cSp1dM2Vj48',
+                'trailer_url'     => 'cSp1dM2Vj48',
                 'producers'       => 'Donald De Line, Kristie Macosko Krieger, Steven Spielberg, Dan Farah',
                 'starring'        => 'Tye Sheridan, Olivia Cooke, Ben Mendelsohn, T.J. Miller, Simon Pegg, Mark Rylance',
                 'screenplay_by'   => 'Zak Penn, Ernest Cline',
@@ -214,10 +224,8 @@ class MovieSeeder extends Seeder
                 'edited_by'   => 'Michael Kahn, Sarah Broshar',
                 'music_by'   => '	Alan Silvestri',
                 'cinematography'   => 'Janusz Kamiński',
-                'synopsis'   => 'James Halliday designs a virtual reality and hides the keys to his fortune in it for a worthy player to find after his death. Wade, a teenager, sets out on a quest to find the keys and the fortune.
-'
-            ]
-            
+                'synopsis'   => 'James Halliday designs a virtual reality and hides the keys to his fortune in it for a worthy player to find after his death. Wade, a teenager, sets out on a quest to find the keys and the fortune.'
+            ]            
         ]);
     }
 }

@@ -52,19 +52,16 @@
                         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img class="d-block w-100" src="{{ asset('images/movies/img1.jpg') }}" alt="First slide">
+                                    <img class="d-block w-100" src="{{ asset('images/avatar/train-to-busan.jpeg') }}" alt="First slide">
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="{{ asset('images/movies/img2.jpg') }}" alt="Second slide">
+                                    <img class="d-block w-100" src="{{ asset('images/avatar/peemak.jpg') }}" alt="Second slide">
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="{{ asset('images/movies/img3.jpg') }}" alt="Third slide">
+                                    <img class="d-block w-100" src="{{ asset('images/avatar/faf 8.jpg') }}" alt="Third slide">
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="{{ asset('images/movies/img4.jpg') }}" alt="Third slide">
-                                </div>
-                                <div class="carousel-item">
-                                    <img class="d-block w-100" src="{{ asset('images/movies/img5.jpg') }}" alt="Third slide">
+                                    <img class="d-block w-100" src="{{ asset('images/avatar/dora.jpg') }}" alt="Third slide">
                                 </div>
                             </div>
                             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -93,9 +90,7 @@
 	</div>
 	<!-- js -->
     <script src="{{ asset('js/core.js') }}"></script>
-    <script src="{{ asset('js/layout-settings.js') }}"></script>
     <script src="{{ asset('js/process.js') }}"></script>
-    <script src="{{ asset('js/script.min.js') }}"></script>
     <script type="module" src="{{ asset('js/actors/movies/index.js') }}"></script>
 </body>
 </html>

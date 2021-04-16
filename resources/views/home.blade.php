@@ -19,11 +19,13 @@
                 </ol>
             </nav>
         </div>
+        @if(Auth::user()->role_id != 3)
         <div class="col-md-6 col-sm-12 text-right">
             <button class="btn btn-primary" data-toggle="modal" data-target="#movie-modal">
                 <i class="icon-copy dw dw-add-file-2"></i> Add a movie
             </button>
         </div>
+        @endif
     </div>
 </div>
 <div class="blog-wrap">
